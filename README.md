@@ -1,6 +1,6 @@
 # 公開マップ / Public Map
 
-https://kohekura.github.io/projectGIS_2026/01_okayama/okayama_osm_light.html
+https://kohekura.github.io/okayama_flowofpeople/
 
 English version is available below the Japanese README.
 
