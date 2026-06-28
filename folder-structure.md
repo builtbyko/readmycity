@@ -35,8 +35,8 @@ projectGIS_2026/
 
 **重要ファイル:**
 - 正規地図: `01_okayama/okayama_osm_light.html`
-- 人流CSV（元データ）: `../Downloads/zinryu_okayama/kobetsuarea_time.csv`（別フォルダ）
-- GTFSデータ: `../Downloads/0kayama_GTFS/`（別フォルダ）
+- 人流CSV（元データ）: `_local_data/zinryu_okayama/kobetsuarea_time.csv`（別フォルダ）
+- GTFSデータ: `_local_data/0kayama_GTFS/`（別フォルダ）
 
 ---
 

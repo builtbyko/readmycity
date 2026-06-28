@@ -1,4 +1,4 @@
-# 依存関係・ビルド成果物
+# Dependencies and build outputs
 node_modules/
 .next/
 .next-map/
@@ -6,26 +6,36 @@ node_modules/
 tsconfig.tsbuildinfo
 *.tsbuildinfo
 
-# 大容量キャッシュ（OSMデータ）
-01_okayama/data/osm_cache/
-01_okayama/data/plateau/
-
-# 大容量HTML（旧バージョン）
-01_okayama/_archive/
-
-# PLATEAUのCityGML生データ（巨大）
-99_sonota/plateau_citygml/
-99_sonota/plateau_citygml_done.txt
-
 # Python
 __pycache__/
 *.pyc
 *.pyo
 
-# OS
-.DS_Store
-Thumbs.db
+# Local/private data
+.agents/
+.codex/
+.env
+.env.*
+*.local
+_local_data/
+local_data/
 
-# 一時ファイル
+# Heavy or non-public GIS source data
+01_okayama/data/
+01_okayama/data/osm_cache/
+01_okayama/data/plateau/
+01_okayama/charts/
+01_okayama/maps/
+01_okayama/reports/
+01_okayama/_archive/
+01_okayama/_runners/
+02_geinintasaku/
+99_sonota/
+
+# Generated scratch files
 *.log
 *.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
