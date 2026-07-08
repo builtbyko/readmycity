@@ -1,14 +1,23 @@
 # 公開マップ / Public Map
 
-https://kohekura.github.io/okayama_flowofpeople/
+The main public entry point is `docs/index.html`.
+
+Current status:
+
+- `docs/index.html`: Read My City MVP public map
+- `docs/okayama_legacy_map.html`: preserved legacy Okayama map snapshot
+
+GitHub Pages should publish from the `docs/` folder.
+
+https://builtbyko.github.io/okayama_flowofpeople/
 
 English version is available below the Japanese README.
 
-# 岡山市中心市街地 都市政策GIS
+# Read My City / 都市政策GIS
 
-このリポジトリは、岡山市中心市街地を対象に、人流と都市空間・交通条件の関係を読み解くための軽量Web GISを公開するものです。
+このリポジトリは、OpenStreetMap をもとに都市の見え方を読み解く軽量Web GISと、その関連成果物を公開するものです。
 
-主な公開成果物は `docs/index.html` です。GitHub Pagesでは、`docs/` フォルダを公開元に設定することで地図を閲覧できます。
+主な公開成果物は `docs/index.html` の `Read My City` です。GitHub Pagesでは、`docs/` フォルダを公開元に設定することで地図を閲覧できます。`docs/okayama_legacy_map.html` には、岡山市中心市街地を対象にした旧版の分析地図を保存しています。
 
 ## 目的
 

@@ -1,0 +1,481 @@
+:root {
+  color-scheme: light;
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-border: #d9d9d9;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* hidden属性はどのCSS displayルールよりも優先させる(display:flex等が上書きしないように) */
+[hidden] {
+  display: none !important;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Hiragino Sans", "Yu Gothic", "Noto Sans JP", sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+.search-card {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.75rem;
+  max-width: 300px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+}
+
+.search-card h1 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.search-card .subtitle {
+  margin: 0.2rem 0 0;
+  font-size: 0.75rem;
+  color: #555;
+}
+
+.meta-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin: 0.2rem 0 0;
+  font-size: 0.72rem;
+  color: #555;
+}
+
+.meta-links a {
+  color: #555;
+}
+
+.data-note {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: #666;
+}
+
+.city-form {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+}
+
+.city-form input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.city-form button {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.9rem;
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.status-message {
+  margin: 0.4rem 0 0;
+  min-height: 1.1em;
+  font-size: 0.78rem;
+  color: #555;
+}
+
+.status-message.error {
+  color: #b33;
+}
+
+.basemap-toggle {
+  margin-top: 0.5rem;
+  display: flex;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.basemap-btn {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.basemap-btn + .basemap-btn {
+  border-left: 1px solid var(--color-border);
+}
+
+.basemap-btn.active {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.35);
+  pointer-events: none;
+}
+
+.loading-box {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.8rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ddd;
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.photo-note {
+  position: absolute;
+  top: 0.75rem;
+  right: 3.2rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+  color: #555;
+}
+
+.loading-box small {
+  font-weight: normal;
+  color: #666;
+}
+
+.refetch-btn {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  padding: 0.8rem 1.6rem;
+  font-size: 1.05rem;
+  font-weight: bold;
+  border: none;
+  background: #d35400;
+  color: #fff;
+  border-radius: 28px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(211, 84, 0, 0.5);
+  animation: fetch-pulse 1.8s ease-in-out infinite;
+}
+
+.refetch-btn:hover {
+  background: #b8480a;
+  animation: none;
+}
+
+@keyframes fetch-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(211, 84, 0, 0.5); }
+  50% { box-shadow: 0 4px 24px rgba(211, 84, 0, 0.85); }
+}
+
+.catalog-panel {
+  margin-top: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.catalog-panel-title {
+  margin: 0;
+  font-weight: bold;
+  padding: 0.2rem 0;
+}
+
+.catalog-checkboxes {
+  max-height: 180px;
+  overflow-y: auto;
+  margin-top: 0.3rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.1rem 0.6rem;
+}
+
+.catalog-checkboxes label {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.15rem 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.legend-panel {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 2rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  max-width: 200px;
+  font-size: 0.75rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.legend-title {
+  margin: 0 0 0.3rem;
+  font-weight: bold;
+}
+
+.legend-entry {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.1rem 0;
+}
+
+.lg-swatch {
+  flex: none;
+}
+
+.lg-fill {
+  width: 14px;
+  height: 14px;
+  opacity: 0.5;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.lg-line {
+  width: 16px;
+  height: 3px;
+}
+
+.lg-circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.legend-note {
+  margin-top: 0.2rem;
+  padding-top: 0.2rem;
+  border-top: 1px solid var(--color-border);
+  color: #555;
+}
+
+.crop-frame {
+  position: absolute;
+  z-index: 1;
+  border: 2px dashed #ffffff;
+  outline: 2px dashed #1a1a1a;
+  outline-offset: -2px;
+  box-shadow: 0 0 0 9999px rgba(90, 90, 90, 0.45);
+  pointer-events: none;
+}
+
+.zoom-warning-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.55);
+  pointer-events: none;
+}
+
+.zoom-warning-box {
+  pointer-events: auto;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  max-width: 320px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+}
+
+.zoom-warning-box p {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+}
+
+.zoom-warning-box button {
+  padding: 0.4rem 1rem;
+  font-size: 0.85rem;
+  border: 1px solid #1a1a1a;
+  background: #1a1a1a;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.overlay-panel {
+  position: absolute;
+  left: 0.75rem;
+  bottom: 0.75rem;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.75rem;
+  max-width: 360px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.claim-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem;
+}
+
+.claim-btn {
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+
+.claim-btn:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.claim-btn#btn-car {
+  background: #fdecea;
+  border-color: #c0392b;
+  color: #7b241c;
+  font-weight: bold;
+}
+
+.claim-btn#btn-place {
+  background: #eafaf1;
+  border-color: #1e8449;
+  color: #196f3d;
+  font-weight: bold;
+}
+
+.claim-btn.active {
+  outline: 2px solid #1a1a1a;
+  outline-offset: 1px;
+}
+
+.lens-message {
+  margin: 0.6rem 0 0;
+  font-size: 0.8rem;
+  color: #333;
+  min-height: 1.2em;
+}
+
+.export-buttons {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+}
+
+.export-buttons button {
+  flex: 1;
+  padding: 0.4rem 0.3rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  border: 1px solid #999;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.export-buttons button:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+
+.doc-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.doc-page h1 {
+  font-size: 1.3rem;
+  margin: 0 0 0.25rem;
+}
+
+.doc-page h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.doc-page .subtitle {
+  margin: 0 0 1.5rem;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.doc-page h2 {
+  font-size: 1.05rem;
+  margin-top: 1.5rem;
+}
+
+.doc-page p,
+.doc-page li {
+  line-height: 1.7;
+}
+
+@media (max-width: 480px) {
+  .search-card {
+    max-width: calc(100% - 1.5rem);
+  }
+  .overlay-panel {
+    max-width: calc(100% - 1.5rem);
+  }
+  .legend-panel {
+    max-width: 160px;
+  }
+}

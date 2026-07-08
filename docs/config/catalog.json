@@ -1,0 +1,246 @@
+{
+  "$schema_note": "日本語業務語彙 → OSMタグ → Overpassクエリ断片 → 表示スタイル の対応辞書。フェーズ0で調査した語彙のみを先行収録したv0.1-draft。約30要素への拡張とスタイルの精緻化はフェーズ1で行う。",
+  "version": "0.1-draft",
+  "status": "phase0-subset",
+  "items": [
+    {
+      "id": "building",
+      "label_ja": "建物",
+      "category": "car",
+      "osm_tags": ["building=*"],
+      "overpass_filter": "way[\"building\"]",
+      "geometry": "polygon_priority",
+      "render_type": "fill",
+      "note": "ボタン4「車が占める場所」の背景。広域では件数が非常に多いため、実装側で最低ズームレベル以上でのみ取得する。",
+      "style_draft": { "fill-color": "#bdbdbd", "fill-opacity": 0.4 }
+    },
+    {
+      "id": "parking_surface",
+      "label_ja": "平面駐車場",
+      "category": "car",
+      "osm_tags": ["amenity=parking", "parking!=multi-storey", "parking!=underground"],
+      "overpass_filter": "nwr[\"amenity\"=\"parking\"][\"parking\"!~\"^(multi-storey|underground)$\"]",
+      "geometry": "polygon_priority",
+      "render_type": "fill",
+      "style_draft": { "fill-color": "#c0392b", "fill-opacity": 0.35 }
+    },
+    {
+      "id": "parking_structure",
+      "label_ja": "立体・地下駐車場",
+      "category": "car",
+      "osm_tags": ["amenity=parking", "parking=multi-storey", "parking=underground"],
+      "overpass_filter": "nwr[\"amenity\"=\"parking\"][\"parking\"~\"^(multi-storey|underground)$\"]",
+      "geometry": "polygon_priority",
+      "render_type": "line",
+      "style_draft": { "line-color": "#7b241c", "line-width": 3 }
+    },
+    {
+      "id": "sidewalk",
+      "label_ja": "歩道",
+      "category": "mobility",
+      "osm_tags": ["highway=footway + footway=sidewalk", "highway=* + sidewalk=both/left/right"],
+      "overpass_filter": [
+        "way[\"highway\"=\"footway\"][\"footway\"=\"sidewalk\"]",
+        "way[\"highway\"][\"sidewalk\"=\"both\"]",
+        "way[\"highway\"][\"sidewalk\"=\"left\"]",
+        "way[\"highway\"][\"sidewalk\"=\"right\"]"
+      ],
+      "geometry": "line",
+      "render_type": "line",
+      "note": "日本のOSMは独立線方式と車道属性方式が混在するため両方式を取得するが、表示上は1色に統合する(オーナー判断)。",
+      "style_draft": { "line-color": "#2874a6", "line-width": 2 }
+    },
+    {
+      "id": "crossing",
+      "label_ja": "横断歩道",
+      "category": "mobility",
+      "osm_tags": ["highway=crossing"],
+      "overpass_filter": "node[\"highway\"=\"crossing\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "note": "ボタン2「回遊性」向けに先出し登録(未実装)。",
+      "style_draft": { "circle-color": "#2874a6", "circle-radius": 3 }
+    },
+    {
+      "id": "roadway",
+      "label_ja": "車道",
+      "category": "mobility",
+      "osm_tags": ["highway=primary|secondary|tertiary|residential|unclassified|trunk"],
+      "overpass_filter": "way[\"highway\"~\"^(primary|secondary|tertiary|residential|unclassified|trunk)$\"]",
+      "geometry": "line",
+      "render_type": "line",
+      "note": "ボタン2「回遊性」で背景の車道(細グレー)として使う想定で先出し登録(未実装)。",
+      "style_draft": { "line-color": "#999999", "line-width": 1 }
+    },
+    {
+      "id": "pedestrian_street",
+      "label_ja": "歩行者専用道路",
+      "category": "mobility_place",
+      "osm_tags": ["highway=pedestrian"],
+      "overpass_filter": "way[\"highway\"=\"pedestrian\"]",
+      "geometry": "line_or_polygon",
+      "render_type": "line",
+      "note": "閉じたway(広場的な歩行者エリア)もv0.1では単純化のため線として描画する。",
+      "style_draft": { "line-color": "#1e8449", "fill-color": "#1e8449", "fill-opacity": 0.2 }
+    },
+    {
+      "id": "cafe",
+      "label_ja": "カフェ",
+      "category": "commerce",
+      "osm_tags": ["amenity=cafe"],
+      "overpass_filter": "nwr[\"amenity\"=\"cafe\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "access_target": true,
+      "note": "アクセス性ボタンでは「お出かけ先」として徒歩圏内=青/圏外=赤の別レイヤで表示する(access_target)。",
+      "style_draft": { "circle-color": "#e67e22", "circle-radius": 5 }
+    },
+    {
+      "id": "restaurant",
+      "label_ja": "飲食店",
+      "category": "commerce",
+      "osm_tags": ["amenity=restaurant", "amenity=fast_food", "amenity=izakaya"],
+      "overpass_filter": ["nwr[\"amenity\"=\"restaurant\"]", "nwr[\"amenity\"=\"fast_food\"]", "nwr[\"amenity\"=\"izakaya\"]"],
+      "geometry": "point",
+      "render_type": "circle",
+      "access_target": true,
+      "note": "アクセス性ボタンでは「お出かけ先」として徒歩圏内=青/圏外=赤の別レイヤで表示する(access_target)。",
+      "style_draft": { "circle-color": "#d35400", "circle-radius": 5 }
+    },
+    {
+      "id": "bookstore",
+      "label_ja": "書店",
+      "category": "commerce",
+      "osm_tags": ["shop=books"],
+      "overpass_filter": "nwr[\"shop\"=\"books\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "access_target": true,
+      "note": "アクセス性の「お出かけ先」の一つ。",
+      "style_draft": { "circle-color": "#8e44ad", "circle-radius": 5 }
+    },
+    {
+      "id": "worship",
+      "label_ja": "神社仏閣・歴史スポット",
+      "category": "commerce",
+      "osm_tags": ["amenity=place_of_worship", "historic=*"],
+      "overpass_filter": ["nwr[\"amenity\"=\"place_of_worship\"]", "nwr[\"historic\"]"],
+      "geometry": "point",
+      "render_type": "circle",
+      "access_target": true,
+      "note": "アクセス性の「お出かけ先」の一つ。日本のOSMで充実している部類。",
+      "style_draft": { "circle-color": "#7d6608", "circle-radius": 5 }
+    },
+    {
+      "id": "museum",
+      "label_ja": "美術館・博物館",
+      "category": "commerce",
+      "osm_tags": ["tourism=museum", "tourism=gallery"],
+      "overpass_filter": ["nwr[\"tourism\"=\"museum\"]", "nwr[\"tourism\"=\"gallery\"]"],
+      "geometry": "point",
+      "render_type": "circle",
+      "access_target": true,
+      "note": "アクセス性の「お出かけ先」の一つ。",
+      "style_draft": { "circle-color": "#5b2c6f", "circle-radius": 5 }
+    },
+    {
+      "id": "station",
+      "label_ja": "駅",
+      "category": "access",
+      "osm_tags": ["railway=station"],
+      "overpass_filter": "node[\"railway\"=\"station\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "style_draft": { "circle-color": "#1a1a1a", "circle-radius": 7 }
+    },
+    {
+      "id": "bus_stop",
+      "label_ja": "バス停",
+      "category": "access",
+      "osm_tags": ["highway=bus_stop"],
+      "overpass_filter": "node[\"highway\"=\"bus_stop\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "style_draft": { "circle-color": "#515a5a", "circle-radius": 4 }
+    },
+    {
+      "id": "bench",
+      "label_ja": "ベンチ",
+      "category": "place",
+      "osm_tags": ["amenity=bench"],
+      "overpass_filter": "node[\"amenity\"=\"bench\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "style_draft": { "circle-color": "#27ae60", "circle-radius": 3 }
+    },
+    {
+      "id": "plaza",
+      "label_ja": "広場",
+      "category": "place",
+      "status": "excluded_from_mvp",
+      "osm_tags": ["place=square", "highway=pedestrian + area=yes"],
+      "overpass_filter": ["nwr[\"place\"=\"square\"]", "way[\"highway\"=\"pedestrian\"][\"area\"=\"yes\"]"],
+      "geometry": "polygon",
+      "render_type": "fill",
+      "note": "フェーズ0調査でplace=squareがほぼ未使用、代替のhighway=pedestrian+area=yesはマッパー流儀への依存が強く都市間比較に耐えないと判明したためMVPから除外(data/phase0/findings.md参照)。フェーズ2でタグ設計を再検討する。",
+      "style_draft": { "fill-color": "#1e8449", "fill-opacity": 0.25 }
+    },
+    {
+      "id": "park",
+      "label_ja": "公園",
+      "category": "place",
+      "osm_tags": ["leisure=park"],
+      "overpass_filter": "nwr[\"leisure\"=\"park\"]",
+      "geometry": "polygon_priority",
+      "render_type": "fill",
+      "style_draft": { "fill-color": "#1e8449", "fill-opacity": 0.25 }
+    },
+    {
+      "id": "bicycle_parking",
+      "label_ja": "駐輪場",
+      "category": "mobility",
+      "osm_tags": ["amenity=bicycle_parking"],
+      "overpass_filter": "nwr[\"amenity\"=\"bicycle_parking\"]",
+      "geometry": "point",
+      "render_type": "circle",
+      "style_draft": { "circle-color": "#2874a6", "circle-radius": 4 }
+    },
+    {
+      "id": "bike_share",
+      "label_ja": "シェアモビリティポート",
+      "category": "access",
+      "osm_tags": ["amenity=bicycle_rental", "amenity=kick-scooter_rental"],
+      "overpass_filter": ["nwr[\"amenity\"=\"bicycle_rental\"]", "nwr[\"amenity\"=\"kick-scooter_rental\"]"],
+      "geometry": "point",
+      "render_type": "circle",
+      "note": "日本のOSMではデータが薄い可能性が高いが、正直にそのまま表示する。",
+      "style_draft": { "circle-color": "#16a085", "circle-radius": 4 }
+    },
+    {
+      "id": "cycleway",
+      "label_ja": "自転車専用道",
+      "category": "access",
+      "osm_tags": ["highway=cycleway", "highway=* + cycleway=lane/track"],
+      "overpass_filter": [
+        "way[\"highway\"=\"cycleway\"]",
+        "way[\"highway\"][\"cycleway\"=\"lane\"]",
+        "way[\"highway\"][\"cycleway\"=\"track\"]"
+      ],
+      "geometry": "line",
+      "render_type": "line",
+      "note": "日本のOSMではデータが薄い可能性が高いが、正直にそのまま表示する。",
+      "style_draft": { "line-color": "#16a085", "line-width": 2 }
+    },
+    {
+      "id": "large_retail",
+      "label_ja": "大規模商業施設",
+      "category": "access",
+      "osm_tags": ["shop=mall", "shop=department_store"],
+      "overpass_filter": ["nwr[\"shop\"=\"mall\"]", "nwr[\"shop\"=\"department_store\"]"],
+      "geometry": "polygon_priority",
+      "render_type": "fill-pattern",
+      "note": "斜線ハッチングパターンで表示。ポリゴン(閉じたway)以外は現状の実装の制約上描画されない。",
+      "style_draft": { "fill-color": "#8e44ad" }
+    }
+  ]
+}
