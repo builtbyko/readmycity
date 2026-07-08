@@ -21,14 +21,11 @@ _local_data/
 local_data/
 
 # Heavy or non-public GIS source data
-01_okayama/data/
-01_okayama/data/osm_cache/
-01_okayama/data/plateau/
-01_okayama/charts/
-01_okayama/maps/
-01_okayama/reports/
-01_okayama/_archive/
-01_okayama/_runners/
+01_okayama/
+data/raw/
+data/cache/
+data/private/
+localhost_app/
 02_geinintasaku/
 99_sonota/
 
